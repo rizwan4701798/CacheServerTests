@@ -7,6 +7,8 @@ using Xunit;
 using Xunit.Abstractions;
 using CacheServerModels;
 
+using CacheServer.Services; // Ensure using for Services
+
 namespace CacheServer.Tests;
 
 public class CacheServerPerformanceTests
@@ -30,20 +32,16 @@ public class CacheServerPerformanceTests
         cacheMock.Setup(c => c.EventNotifier)
                  .Returns(new Mock<ICacheEventNotifier>().Object);
 
-        var server = new CacheServer.Server.CacheServer(5050, cacheMock.Object);
+        var processor = new RequestProcessor(cacheMock.Object);
 
-        var request = new CacheRequest
-        {
-            Operation = CacheOperation.Read,
-            Key = "key"
-        };
+        var request = new KeyRequest(CacheOperation.Read, "key");
 
         var stopwatch = Stopwatch.StartNew();
 
         // Act
         for (int i = 0; i < 100000; i++)
         {
-            server.ProcessRequest(request);
+            processor.Process(request);
         }
 
         stopwatch.Stop();

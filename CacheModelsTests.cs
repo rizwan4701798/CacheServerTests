@@ -10,12 +10,7 @@ public class CacheModelsTests
     public void CacheRequest_Should_Set_And_Get_Properties()
     {
         // Arrange
-        var request = new CacheRequest
-        {
-            Operation = CacheOperation.Create,
-            Key = "user:1",
-            Value = "Rizwan"
-        };
+        var request = new DataRequest(CacheOperation.Create, "user:1", "Rizwan", null);
 
         // Assert
         request.Operation.Should().Be(CacheOperation.Create);
@@ -27,25 +22,19 @@ public class CacheModelsTests
     public void CacheRequest_Should_Allow_Null_Value()
     {
         // Arrange
-        var request = new CacheRequest
-        {
-            Operation = CacheOperation.Read,
-            Key = "user:1",
-            Value = null
-        };
+        var request = new DataRequest(CacheOperation.Read, "user:1", null, null);
 
         // Assert
         request.Value.Should().BeNull();
     }
 
     [Fact]
-    public void CacheResponse_Should_Set_And_Get_Properties()
+    public void DataResponse_Should_Set_And_Get_Properties()
     {
         // Arrange
-        var response = new CacheResponse
+        var response = new DataResponse(42)
         {
             Success = true,
-            Value = 42,
             Error = null
         };
 
@@ -56,32 +45,23 @@ public class CacheModelsTests
     }
 
     [Fact]
-    public void CacheResponse_Should_Hold_Error_Message_When_Failed()
+    public void ErrorResponse_Should_Hold_Error_Message_When_Failed()
     {
         // Arrange
-        var response = new CacheResponse
-        {
-            Success = false,
-            Error = "Invalid operation"
-        };
+        var response = new ErrorResponse("Invalid operation");
 
         // Assert
         response.Success.Should().BeFalse();
         response.Error.Should().Be("Invalid operation");
-        response.Value.Should().BeNull();
     }
 
     [Fact]
-    public void CacheResponse_Should_Allow_Any_Object_Type_As_Value()
+    public void DataResponse_Should_Allow_Any_Object_Type_As_Value()
     {
         // Arrange
         var payload = new { Id = 1, Name = "Test" };
 
-        var response = new CacheResponse
-        {
-            Success = true,
-            Value = payload
-        };
+        var response = new DataResponse(payload);
 
         // Assert
         response.Value.Should().Be(payload);
