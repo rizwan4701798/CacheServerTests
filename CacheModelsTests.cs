@@ -12,13 +12,13 @@ public class CacheModelsTests
         // Arrange
         var request = new CacheRequest
         {
-            Operation = "CREATE",
+            Operation = CacheOperation.Create,
             Key = "user:1",
             Value = "Rizwan"
         };
 
         // Assert
-        request.Operation.Should().Be("CREATE");
+        request.Operation.Should().Be(CacheOperation.Create);
         request.Key.Should().Be("user:1");
         request.Value.Should().Be("Rizwan");
     }
@@ -29,7 +29,7 @@ public class CacheModelsTests
         // Arrange
         var request = new CacheRequest
         {
-            Operation = "READ",
+            Operation = CacheOperation.Read,
             Key = "user:1",
             Value = null
         };

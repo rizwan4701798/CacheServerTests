@@ -34,7 +34,7 @@ public class CacheServerPerformanceTests
 
         var request = new CacheRequest
         {
-            Operation = "READ",
+            Operation = CacheOperation.Read,
             Key = "key"
         };
 

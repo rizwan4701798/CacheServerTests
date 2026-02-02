@@ -31,7 +31,7 @@ public class CacheServerTests
 
         var request = new CacheRequest
         {
-            Operation = "CREATE",
+            Operation = CacheOperation.Create,
             Key = "key1",
             Value = "value1"
         };
@@ -58,7 +58,7 @@ public class CacheServerTests
 
         var request = new CacheRequest
         {
-            Operation = "READ",
+            Operation = CacheOperation.Read,
             Key = "key1"
         };
 
@@ -82,7 +82,7 @@ public class CacheServerTests
 
         var request = new CacheRequest
         {
-            Operation = "UPDATE",
+            Operation = CacheOperation.Update,
             Key = "key1",
             Value = "value2"
         };
@@ -108,7 +108,7 @@ public class CacheServerTests
 
         var request = new CacheRequest
         {
-            Operation = "DELETE",
+            Operation = CacheOperation.Delete,
             Key = "key1"
         };
 
@@ -127,7 +127,7 @@ public class CacheServerTests
         // Arrange
         var request = new CacheRequest
         {
-            Operation = "INVALID",
+            Operation = (CacheOperation)999,
             Key = "key1"
         };
 
@@ -149,7 +149,7 @@ public class CacheServerTests
 
         var request = new CacheRequest
         {
-            Operation = "CREATE",
+            Operation = CacheOperation.Create,
             Key = "key1",
             Value = "value1"
         };
