@@ -15,6 +15,9 @@ public class CacheServerTests
     public CacheServerTests()
     {
         _cacheManagerMock = new Mock<ICacheManager>(MockBehavior.Strict);
+        var eventNotifierMock = new Mock<ICacheEventNotifier>();
+        _cacheManagerMock.Setup(c => c.EventNotifier).Returns(eventNotifierMock.Object);
+
         _server = new CacheServer.Server.CacheServer(port: 5050, cacheManager: _cacheManagerMock.Object);
     }
 
